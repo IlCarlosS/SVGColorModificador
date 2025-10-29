@@ -4,7 +4,7 @@ Visión General
 SVG Color Modificador es una herramienta web sencilla y potente diseñada para modificar los colores de relleno (fill) en uno o varios archivos SVG (Scalable Vector Graphics). La aplicación permite identificar colores únicos en múltiples archivos cargados simultáneamente, seleccionar qué colores reemplazar y aplicar un nuevo valor HEX a todos los elementos afectados con un solo clic.
 
 Características Principales
->Carga Múltiple: Permite arrastrar y soltar o seleccionar hasta 100 archivos SVG a la vez.
+>Carga Múltiple: Permite arrastrar y soltar o seleccionar hasta 20 archivos SVG a la vez.
 >Análisis Inteligente: Identifica y lista todos los colores de relleno (fill) únicos presentes en los archivos cargados.
 >Selección por Lote: Opciones para seleccionar todos los colores o solo aquellos que se repiten en múltiples archivos.
 >Modificación Rápida: Reemplaza un color HEX antiguo por uno nuevo en todos los elementos y archivos seleccionados simultáneamente.
