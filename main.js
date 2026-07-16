@@ -56,16 +56,27 @@ const processSVG = (svgContent, fileName) => {
         const elementId = `${svgId}-el-${elementCount++}`;// Asignar un ID unico al elemento dentro del SVG
         element.setAttribute('data-color-id', elementId);
 
-        //Extraer el color 'fill'
+        // Extraer el color 'fill'
         let fillColor = element.getAttribute('fill');
         if (fillColor && fillColor.toLowerCase() !== 'none') {
             const color = normalizeColor(fillColor);
             if (!uniqueColors.has(color)) {
                 uniqueColors.set(color, []);
             }
-            uniqueColors.get(color).push(elementId);
+            // Ahora guardamos un objeto indicando que es un 'fill'
+            uniqueColors.get(color).push({ id: elementId, type: 'fill' });
         }
-        // NOTA: En futuras iteraciones, tambien se analizar 'stroke'
+
+        // Extraer el color 'stroke' para que detecte el currentColor
+        let strokeColor = element.getAttribute('stroke');
+        if (strokeColor && strokeColor.toLowerCase() !== 'none') {
+            const color = normalizeColor(strokeColor);
+            if (!uniqueColors.has(color)) {
+                uniqueColors.set(color, []);
+            }
+            // Ahora guardamos un objeto indicando que es un 'stroke'
+            uniqueColors.get(color).push({ id: elementId, type: 'stroke' });
+        }
     });
 
     // Crear el objeto de datos del SVG
@@ -372,10 +383,11 @@ function applyColorChanges() {
             if (svgData.colors.has(oldColor)) {
                 const elementIds = svgData.colors.get(oldColor);
                 // Iterar sobre esos elementos y aplicar el nuevo color
-                elementIds.forEach(elementId => {
-                    const element = svgData.dom.querySelector(`[data-color-id="${elementId}"]`);
+                elementIds.forEach(item => {
+                    const element = svgData.dom.querySelector(`[data-color-id="${item.id}"]`);
                     if (element) {
-                        element.setAttribute('fill', newColor);
+                        // Usamos item.type dinámicamente ('fill' o 'stroke')
+                        element.setAttribute(item.type, newColor);
                         changesMade = true;
                     }
                 });
